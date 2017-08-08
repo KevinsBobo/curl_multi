@@ -37,8 +37,8 @@ typedef struct _HttpInfo
   {
     if(pHttp != NULL)
     {
-      // delete pHttp;
-      curl_easy_cleanup(pHttp->get_handle());  
+      // curl_easy_cleanup(pHttp->get_handle());  
+      delete pHttp;
     }
     if(pstrRet != NULL)
     {

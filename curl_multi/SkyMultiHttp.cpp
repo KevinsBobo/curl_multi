@@ -18,7 +18,6 @@ CSkyMultiHttp::CSkyMultiHttp(done_proc proc)
 
 CSkyMultiHttp::~CSkyMultiHttp()
 {
-
 }
 
 BOOL CSkyMultiHttp::Init()
@@ -51,6 +50,7 @@ void CSkyMultiHttp::loop()
     //事件循环由 uv_run 函数封装, 在使用libuv编程时, 该函数通常在最后才被调用.  
     uv_run(m_loop, UV_RUN_DEFAULT);  
     curl_multi_cleanup(m_curl_handle);  
+    curl_global_cleanup();
 }
 
 curl_context_t *CSkyMultiHttp::create_curl_context(curl_socket_t sockfd) {  

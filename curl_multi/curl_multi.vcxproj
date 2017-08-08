@@ -48,8 +48,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\asm\task\2017-8-02前完成-libcure异步\curl_multi\curl_multi\libuv\include;D:\asm\task\2017-8-02前完成-libcure异步\curl_multi\curl_multi\libcurl;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\asm\task\2017-8-02前完成-libcure异步\curl_multi\curl_multi\libuv\lib;D:\asm\task\2017-8-02前完成-libcure异步\curl_multi\curl_multi\libcurl\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\libuv\include;.\libcurl;$(IncludePath)</IncludePath>
+    <LibraryPath>.\libuv\lib;.\libcurl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

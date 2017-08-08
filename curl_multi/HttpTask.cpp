@@ -68,7 +68,7 @@ void CHttpTask::TaskDoneProc(CURL* handle)
     // 设置第二个任务
     case TASK_VIST_REG:
     {
-      ::EnterCriticalSection(&m_csLock);
+      // ::EnterCriticalSection(&m_csLock);
       // char* szBuf = new char[256];
       sprintf_s(pInfo->szBuff , MAXBYTE ,
                 "name=%s%d&email=%s%d%%40test.com&password=%s&password1=%s&submit=%%E6%%B3%%A8%%E5%%86%%8C" ,
@@ -83,14 +83,14 @@ void CHttpTask::TaskDoneProc(CURL* handle)
       pInfo->pHttp->sc_post("http://xxxxxxxx.com/user/reg/", pInfo->szBuff);
       curl_multi_add_handle(CSkyMultiHttp::m_curl_handle, pInfo->pHttp->get_handle());  
       pInfo->nTaskLevel = TASK_POST_REG;
-      ::LeaveCriticalSection(&m_csLock);
+      // ::LeaveCriticalSection(&m_csLock);
     }
       break;
 
     // 设置第三个任务
     case TASK_POST_REG:
     {
-      ::EnterCriticalSection(&m_csLock);
+      // ::EnterCriticalSection(&m_csLock);
       // char szBuf[256] = { 0 };
       sprintf_s(pInfo->szBuff , MAXBYTE ,
                 "name=%s%d&password=%s&submit=%%E7%%99%%BB%%E5%%BD%%95" ,
@@ -102,23 +102,23 @@ void CHttpTask::TaskDoneProc(CURL* handle)
       pInfo->pHttp->sc_post("http://xxxxxxxx.com/user/login/", pInfo->szBuff);
       curl_multi_add_handle(CSkyMultiHttp::m_curl_handle, pInfo->pHttp->get_handle());  
       pInfo->nTaskLevel = TASK_POST_LOGIN;
-      ::LeaveCriticalSection(&m_csLock);
+      // ::LeaveCriticalSection(&m_csLock);
     }
       break;
 
     // 设置第四个任务
     case TASK_POST_LOGIN:
-      ::EnterCriticalSection(&m_csLock);
+      // ::EnterCriticalSection(&m_csLock);
       pInfo->pHttp->sc_get("http://xxxxxxxx.com/", *(pInfo->pstrRet));
       curl_multi_add_handle(CSkyMultiHttp::m_curl_handle, pInfo->pHttp->get_handle());  
       pInfo->nTaskLevel = TASK_VIST_ROOT;
-      ::LeaveCriticalSection(&m_csLock);
+      // ::LeaveCriticalSection(&m_csLock);
       break;
 
     // 设置第五个任务
     case TASK_VIST_ROOT:
     {
-      ::EnterCriticalSection(&m_csLock);
+      // ::EnterCriticalSection(&m_csLock);
       // char szBuf[ 50 ] = { 0 };
       sprintf_s(pInfo->szBuff , MAXBYTE, "%s%d" , m_szRegName, pInfo->nTask);
 
@@ -135,7 +135,7 @@ void CHttpTask::TaskDoneProc(CURL* handle)
       pInfo->pHttp->sc_get("http://xxxxxxxx.com/user/logout/");
       curl_multi_add_handle(CSkyMultiHttp::m_curl_handle, pInfo->pHttp->get_handle());  
       pInfo->nTaskLevel = TASK_GET_LOGOUT;
-      ::LeaveCriticalSection(&m_csLock);
+      // ::LeaveCriticalSection(&m_csLock);
     }
       break;
 
@@ -144,6 +144,7 @@ void CHttpTask::TaskDoneProc(CURL* handle)
       ::EnterCriticalSection(&m_csLock);
       if(m_nTask >= m_nCount)
       {
+        // curl_multi_remove_handle(CSkyMultiHttp::m_curl_handle, pInfo->pHttp->get_handle());  
         ::LeaveCriticalSection(&m_csLock);
         break;
       }
